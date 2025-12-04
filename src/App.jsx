@@ -7,7 +7,7 @@ import NoteForm from './pages/NoteForm';
 import NotesList from './pages/NoteList';
 
 
-// Protected Route Component
+// * Protected Route Component
 function ProtectedRoute({ children }) {
   const token = localStorage.getItem('token');
   return token ? children : <Navigate to="/login" />;
