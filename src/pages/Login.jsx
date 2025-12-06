@@ -92,6 +92,13 @@ function Login() {
             {loading ? 'Logging in...' : 'Login'}
           </button>
 
+          <p className="text-center text-gray-600 mt-6">
+          Don't have an account?{' '}
+          <Link to="/register" className="text-blue-600 hover:text-blue-700 font-medium">
+            Register here
+          </Link>
+        </p>
+
           <div className="relative flex py-2 items-center">
             <div className="flex-grow border-t border-gray-300"></div>
             <span className="flex-shrink-0 mx-4 text-gray-400 text-sm">Or</span>
@@ -108,12 +115,7 @@ function Login() {
           </button>
         </form>
 
-        <p className="text-center text-gray-600 mt-6">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-blue-600 hover:text-blue-700 font-medium">
-            Register here
-          </Link>
-        </p>
+        
 
           {/* demo login details */}
         <div>
