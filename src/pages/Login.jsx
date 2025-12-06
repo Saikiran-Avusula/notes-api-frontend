@@ -26,11 +26,29 @@ function Login() {
     }
   };
 
+  const handleDemoLogin = async () => {
+    setError('');
+    setLoading(true);
+    setEmail('demo@example.com');
+    setPassword('demo123');
+
+    try {
+      const response = await login({ email: 'demo@example.com', password: 'demo123' });
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userName', response.data.name);
+      navigate('/notes');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Demo login failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
       <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Login</h2>
-        
+
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             {error}
@@ -72,6 +90,21 @@ function Login() {
             className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:bg-blue-300 transition duration-200"
           >
             {loading ? 'Logging in...' : 'Login'}
+          </button>
+
+          <div className="relative flex py-2 items-center">
+            <div className="flex-grow border-t border-gray-300"></div>
+            <span className="flex-shrink-0 mx-4 text-gray-400 text-sm">Or</span>
+            <div className="flex-grow border-t border-gray-300"></div>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleDemoLogin}
+            disabled={loading}
+            className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 disabled:bg-green-300 transition duration-200 font-medium"
+          >
+            Demo Login
           </button>
         </form>
 
