@@ -114,6 +114,13 @@ function Login() {
             Register here
           </Link>
         </p>
+
+          {/* demo login details */}
+        <div>
+          <h3 className="text-center text-gray-600 mt-6 font-medium">Demo Login Details</h3>
+          <p className="text-center text-gray-600">Email: <span className="font-semibold"> demo@example.com</span></p>
+          <p className="text-center text-gray-600">Password: <span className="font-semibold">demo123</span></p>
+        </div>
       </div>
     </div>
   );
