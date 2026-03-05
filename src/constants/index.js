@@ -3,7 +3,7 @@ export const API_CONFIG = {
   BASE_URL: window.location.hostname === 'localhost' 
     ? 'http://localhost:8080/api'
     : 'https://notes-api-rp40.onrender.com/api',
-  TIMEOUT: 10000,
+  TIMEOUT: 30000,
   RETRY_ATTEMPTS: 3
 };
 

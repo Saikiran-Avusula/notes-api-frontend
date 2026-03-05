@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { login } from '../services/api';
+import { login, register } from '../services/api';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -20,7 +20,9 @@ function Login() {
       localStorage.setItem('userName', response.data.name);
       navigate('/notes');
     } catch (err) {
-      setError(err.response?.data?.error || 'Login failed. Please check your credentials.');
+      console.error('Login error:', err);
+      const errorMsg = err.response?.data?.error || err.message || 'Login failed. Please check your credentials.';
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -33,12 +35,27 @@ function Login() {
     setPassword('demo123');
 
     try {
+      // Try to register demo user first (in case it doesn't exist)
+      try {
+        await register({ 
+          name: 'Demo User', 
+          email: 'demo@example.com', 
+          password: 'demo123' 
+        });
+      } catch (regError) {
+        // User might already exist, continue with login
+        console.log('Demo user might already exist');
+      }
+      
+      // Now try to login
       const response = await login({ email: 'demo@example.com', password: 'demo123' });
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userName', response.data.name);
       navigate('/notes');
     } catch (err) {
-      setError(err.response?.data?.error || 'Demo login failed. Please try again.');
+      console.error('Demo login error:', err);
+      const errorMsg = err.response?.data?.error || err.message || 'Demo login failed. Backend might be sleeping.';
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }
