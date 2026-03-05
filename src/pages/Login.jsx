@@ -35,27 +35,14 @@ function Login() {
     setPassword('demo123');
 
     try {
-      // Try to register demo user first (in case it doesn't exist)
-      try {
-        await register({ 
-          name: 'Demo User', 
-          email: 'demo@example.com', 
-          password: 'demo123' 
-        });
-      } catch (regError) {
-        // User might already exist, continue with login
-        console.log('Demo user might already exist');
-      }
-      
-      // Now try to login
+      // Direct login attempt
       const response = await login({ email: 'demo@example.com', password: 'demo123' });
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userName', response.data.name);
       navigate('/notes');
     } catch (err) {
       console.error('Demo login error:', err);
-      const errorMsg = err.response?.data?.error || err.message || 'Demo login failed. Backend might be sleeping.';
-      setError(errorMsg);
+      setError('Demo user not found. Please register first or contact admin.');
     } finally {
       setLoading(false);
     }
